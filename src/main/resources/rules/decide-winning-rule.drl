@@ -1,0 +1,14 @@
+package business.rules;
+
+import org.arpit.java2blog.model.*;
+
+
+rule "Decide Winning Rule"
+	salience -100
+	when
+		
+       
+	then
+		
+		
+		end
