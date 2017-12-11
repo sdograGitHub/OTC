@@ -4,3 +4,168 @@ import org.arpit.java2blog.model.*;
 
 import java.util.*;
 
+
+rule "Rule if Account Number, Product Group Code and Product ISBN Match"
+    no-loop
+    when  
+       	$line: OrderLine()  
+       	$r: RuleSetup(account.accountNumber!=null, account.accountNumber == $line.account.accountNumber ,
+       		product.productGroupCode!=null, product.productGroupCode.equals($line.product.productGroupCode),
+       		product.familyCode == null, product.isbn!=null, product.isbn == $line.product.isbn )
+       	
+   then  
+     	System.out.println("4");
+     	modify($r){
+     		setIsQualified(true);
+     	}
+     
+end
+
+rule "Rule if Account Number and Product Group Code match"
+    no-loop
+    when  
+       	$line: OrderLine()  
+       	$r: RuleSetup(account.accountNumber!=null, account.accountNumber == $line.account.accountNumber,
+       		product.productGroupCode!=null, product.productGroupCode.equals($line.product.productGroupCode), 
+       		product.familyCode == null, product.isbn == null)
+       	
+   then  
+     	System.out.println("5");
+     	modify($r){
+     		setIsQualified(true);
+     	}
+     
+end
+
+rule "Rule if Account Number and Product ISBN match"
+    no-loop
+    when  
+       	$line: OrderLine()  
+       	$r: RuleSetup(account.accountNumber!=null, account.accountNumber == $line.account.accountNumber,
+       		product.productGroupCode == null, product.familyCode == null, product.isbn!=null, product.isbn == $line.product.isbn )
+       	
+   then  
+     	System.out.println("6");
+     	modify($r){
+     		setIsQualified(true);
+     	}
+     
+end
+
+rule "Rule if Product Group Code and Product ISBN match"
+    no-loop
+    when  
+       	$line: OrderLine()  
+       	$r: RuleSetup(product.productGroupCode!=null, product.productGroupCode.equals($line.product.productGroupCode),
+       		account.accountNumber == null, product.familyCode == null, product.isbn!=null, product.isbn == $line.product.isbn)
+       	
+   then  
+     	System.out.println("7");
+     	modify($r){
+     		setIsQualified(true);
+     	}
+     
+end
+
+rule "Rule if Product Group Code match"
+   no-loop
+   when  
+       	$line: OrderLine()  
+       	$r: RuleSetup(product.productGroupCode!=null, product.productGroupCode.equals($line.product.productGroupCode),
+       		account.accountNumber == null, product.familyCode == null, product.isbn == null )
+       	
+   then  
+     	System.out.println("8");
+     	modify($r){
+     		setIsQualified(true);
+     	}
+     
+end
+
+rule "Rule if Product ISBN match"
+    no-loop
+    when  
+       	$line: OrderLine()  
+       	$r: RuleSetup(product.isbn!=null, product.isbn == $line.product.isbn, 
+       		account.accountNumber == null, product.familyCode == null, product.productGroupCode == null )
+       	
+   then 
+   		System.out.println("9");
+   		modify($r){
+     		setIsQualified(true);
+     	}
+   
+end
+
+rule "Rule if Account Type match"
+    no-loop
+    when  
+       	$line: OrderLine()  
+       	$r: RuleSetup(account.accountType!=null, account.accountType.equals($line.account.accountType),
+       	product.familyCode == null, product.isbn == null)
+       	
+   then 
+   		System.out.println("10");
+   		modify($r){
+     		setIsQualified(true);
+     	}
+end
+
+rule "Rule if Account Type and Product ISBN match"
+    no-loop
+    when  
+       	$line: OrderLine()  
+       	$r: RuleSetup(account.accountType!=null, account.accountType.equals($line.account.accountType),
+       		product.isbn!=null, product.isbn == $line.product.isbn, product.familyCode == null  )
+       	
+   then  
+     	System.out.println("11");
+     	modify($r){
+     		setIsQualified(true);
+     	}
+     
+end
+
+rule "Rule if Account Number match"
+    no-loop
+    when  
+       	$line: OrderLine() 
+       	$r: RuleSetup(account.accountNumber!=null, account.accountNumber == $line.account.accountNumber,
+       		product.familyCode == null, product.productGroupCode == null, product.isbn == null )
+
+   then  
+     	System.out.println("12");
+     	modify($r){
+     		setIsQualified(true);
+     	}
+end
+
+rule "Rule if Account Number and Family Code Match"
+    no-loop
+    when  
+       	$o: OrderLine()  
+       	$r: RuleSetup(!isQualified, account.accountNumber == $o.account.accountNumber, product.familyCode.equals($o.product.familyCode))
+       	
+   then  
+     	System.out.println("13");
+     	modify($r){
+     		setIsQualified(true);
+     	}
+     
+end
+
+rule "Standard Rule if family code match"
+    salience -10
+    no-loop
+    when  
+       	$o: OrderLine()  
+       	$r: StandardRuleSetup(!isQualified, product.familyCode.equals($o.product.familyCode) )
+       	
+   then  
+     	System.out.println("14");
+     	modify($r){
+     		setIsQualified(true);
+     	}
+     
+end
+

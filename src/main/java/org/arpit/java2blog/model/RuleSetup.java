@@ -24,6 +24,14 @@ import org.hibernate.envers.Audited;
 public class RuleSetup implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
+	private HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+	
+	public RuleSetup() {
+		isQualified = false;
+		isWinner = false;
+		winningPriority = "";
+	}
+	
 	
 	@Id
 	@Column(name="id")
@@ -51,10 +59,7 @@ public class RuleSetup implements Serializable {
 	@Column(name = "isActive")
 	private boolean isActive;
 
-	@Column(name = "isQualified")
 	private Boolean isQualified;
-
-	@Column(name = "isWinner")
 	private Boolean isWinner;
 
 	@Column(name = "winningPriority")
@@ -80,8 +85,6 @@ public class RuleSetup implements Serializable {
 		this.account = account;
 	}
 
-	private HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-	
 	public Product getProduct() {
 		return product;
 	}

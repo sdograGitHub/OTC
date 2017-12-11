@@ -2,13 +2,41 @@ package business.rules;
 
 import org.arpit.java2blog.model.*;
 
+import java.util.*;
 
-rule "Decide Winning Rule"
+rule "Define priority P1 on basis of overridenExplicitly flag"
+	salience -50
+	enabled($r.winningPriority == "")
+	when
+		$r: RuleSetup(isQualified, offer.overridenExplicitly)
+	then
+		System.out.println("1");
+		modify($r){
+			setWinningPriority("P1");
+		}
+end
+
+rule "Define priority P2 on basis of hardcode flag"
+	salience -50
+	enabled($r.winningPriority == "")
+	when
+		$r: RuleSetup(isQualified, offer.hardcode, !offer.overridenExplicitly)
+	then
+		System.out.println("2");
+		modify($r){
+			setWinningPriority("P2");
+		}
+end
+
+rule "Decide winner on basis of combo field"
 	salience -100
 	when
-		
-       
+		$r: RuleSetup(isQualified, offer.comboField == 2, !isWinner)
 	then
-		
-		
-		end
+     	System.out.println("3");
+     	modify($r){
+			setIsWinner(true);
+		}
+			
+end
+

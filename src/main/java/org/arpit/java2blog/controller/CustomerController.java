@@ -43,7 +43,7 @@ public class CustomerController {
     @RequestMapping(value="/generateOffer", method=RequestMethod.POST)
     public String generateOffer(@ModelAttribute DemoForm demoForm, Model model) {
     	
-    	ruleService.addRule(demoForm);
+    	ruleService.generateOffer(demoForm, model);
 		return getIndex(model);
     }
     

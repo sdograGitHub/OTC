@@ -1,6 +1,9 @@
 package org.arpit.java2blog.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +14,6 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
-import javax.persistence.CascadeType;
-
 /**
  * @author raghav.rampal
  *
@@ -22,6 +23,14 @@ import javax.persistence.CascadeType;
 @Table(name="StandardRule_SetUp")
 public class StandardRuleSetup implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+	
+	public StandardRuleSetup() {
+		isQualified = false;
+		isWinner = false;
+	}
+	
+	
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -45,10 +54,7 @@ public class StandardRuleSetup implements Serializable {
 	@Column(name = "isActive")
 	private boolean isActive;
 	
-	@Column(name = "isQualified")
 	private Boolean isQualified;
-	
-	@Column(name = "isWinner")
 	private Boolean isWinner;
 	
 	@Column(name = "discountRange1")
@@ -192,12 +198,12 @@ public class StandardRuleSetup implements Serializable {
 		this.discountRange3 = discountRange3;
 	}
 
-	/*public HashMap<Integer, Integer> getMap() {
+	public HashMap<Integer, Integer> getMap() {
 		return map;
 	}
 
 	public void setMap(HashMap<Integer, Integer> map) {
 		this.map = map;
-	}*/
+	}
 
 }

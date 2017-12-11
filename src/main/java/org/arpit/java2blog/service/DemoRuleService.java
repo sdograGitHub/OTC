@@ -6,6 +6,7 @@ import org.arpit.java2blog.model.OrderLine;
 import org.arpit.java2blog.model.RuleSetup;
 import org.arpit.java2blog.model.StandardRuleSetup;
 import org.arpit.java2blog.model.form.DemoForm;
+import org.springframework.ui.Model;
 
 
 public interface DemoRuleService<T> {
@@ -15,4 +16,6 @@ public interface DemoRuleService<T> {
 	public List<StandardRuleSetup>getStandardRuleSetupList();
 	public List<OrderLine>getOrderSetupList();
 	void addOrder(DemoForm demoForm);
+	public String generateOffer(DemoForm demoForm, Model model);
+	
 }
