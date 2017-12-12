@@ -78,9 +78,9 @@
 								<tr>
 									<th>Rule Number</th>
 									<th>Rule Name</th>
-									<th>Account</th>
-									<th>Store</th>
-									<th>FC</th>
+									<th>Account Number</th>
+									<th>Store Number</th>
+									<th>Family C</th>
 									<th>DGP</th>
 									<th>AT</th>
 									<th>Isbn</th>
@@ -103,8 +103,8 @@
 									<tr>
 										<td>${rulesetup.ruleNumber}</td>
 										<td>${rulesetup.ruleName}</td>
-										<td>${sprinkler.ruleSetup.account.accountNumber}</td>
-										<td>${sprinkler.ruleSetup.account.storeNumber}</td>
+										<td>${ruleSetup.account.accountNumber}</td>
+										<td>${ruleSetup.account.storeNumber}</td>
 										<td>${rulesetup.product.familyCode}</td>
 										<td>${rulesetup.product.productGroupCode}</td>
 										<td>${rulesetup.account.accountType}</td>
@@ -119,7 +119,7 @@
 										<td>${rulesetup.quantityRange1}</td>
 										<td>${rulesetup.discountRange1}</td>
 										<td>${rulesetup.quantityRange2}</td>
-										<td>${uleSetup.discountRange2}</td> 
+										<td>${ruleSetup.discountRange2}</td> 
 									</tr>
 								</c:forEach>
 							</tbody>

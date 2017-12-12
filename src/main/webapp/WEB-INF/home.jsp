@@ -228,7 +228,7 @@
 								<tr>
 									<th>Rule Number</th>
 									<th>Rule Name</th>
-									<th>Account</th>
+									<th>Account Number</th>
 									<th>Store Number</th>
 									<th>FC</th>
 									<th>DGP</th>
@@ -253,8 +253,8 @@
 									<tr>
 										<td>${rulesetup.ruleNumber}</td>
 										<td>${rulesetup.ruleName}</td>
-										<td>${sprinkler.ruleSetup.account.accountNumber}</td>
-										<td>${sprinkler.ruleSetup.account.storeNumber}</td>
+										<td>${ruleSetup.account.accountNumber}</td>
+										<td>${ruleSetup.account.storeNumber}</td>
 										<td>${rulesetup.product.familyCode}</td>
 										<td>${rulesetup.product.productGroupCode}</td>
 										<td>${rulesetup.account.accountType}</td>
