@@ -29,8 +29,8 @@ public class Terms {
 	@Column(name="days")
 	private Integer days;
 	
-	@Column(name="freeFreight")
-	private Boolean freeFreight;
+	@Column(name="freeFreightUpgrade")
+	private Boolean freeFreightUpgrade;
 	
 	@Column(name="chargeFreight")
 	private Boolean chargeFreight;
@@ -46,12 +46,12 @@ public class Terms {
 		this.days = days;
 	}
 
-	public Boolean getFreeFreight() {
-		return freeFreight;
+	public Boolean getFreeFreightUpgrade() {
+		return freeFreightUpgrade;
 	}
 
-	public void setFreeFreight(Boolean freeFreight) {
-		this.freeFreight = freeFreight;
+	public void setFreeFreightUpgrade(Boolean freeFreightUpgrade) {
+		this.freeFreightUpgrade = freeFreightUpgrade;
 	}
 
 	public Boolean getChargeFreight() {

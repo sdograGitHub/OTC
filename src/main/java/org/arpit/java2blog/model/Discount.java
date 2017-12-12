@@ -25,9 +25,30 @@ public class Discount implements Serializable {
     
     @Column(name="percentage")
     private Double percentage;
-
     
-    public Discount() {
+    @Column(name="additionalPercentage")
+    private Double additionalPercentage;
+    
+    @Column(name="netPrice")
+    private Double netPrice;
+
+    public Double getAdditionalPercentage() {
+		return additionalPercentage;
+	}
+
+	public void setAdditionalPercentage(Double additionalPercentage) {
+		this.additionalPercentage = additionalPercentage;
+	}
+
+	public Double getNetPrice() {
+		return netPrice;
+	}
+
+	public void setNetPrice(Double netPrice) {
+		this.netPrice = netPrice;
+	}
+
+	public Discount() {
     }
 
     public Discount(Double percentage) {

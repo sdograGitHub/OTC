@@ -14,7 +14,6 @@ rule "Rule if Account Number, Product Group Code and Product ISBN Match"
        		product.familyCode == null, product.isbn!=null, product.isbn == $line.product.isbn )
        	
    then  
-     	System.out.println("4");
      	modify($r){
      		setIsQualified(true);
      	}
@@ -30,7 +29,6 @@ rule "Rule if Account Number and Product Group Code match"
        		product.familyCode == null, product.isbn == null)
        	
    then  
-     	System.out.println("5");
      	modify($r){
      		setIsQualified(true);
      	}
@@ -45,7 +43,6 @@ rule "Rule if Account Number and Product ISBN match"
        		product.productGroupCode == null, product.familyCode == null, product.isbn!=null, product.isbn == $line.product.isbn )
        	
    then  
-     	System.out.println("6");
      	modify($r){
      		setIsQualified(true);
      	}
@@ -60,7 +57,6 @@ rule "Rule if Product Group Code and Product ISBN match"
        		account.accountNumber == null, product.familyCode == null, product.isbn!=null, product.isbn == $line.product.isbn)
        	
    then  
-     	System.out.println("7");
      	modify($r){
      		setIsQualified(true);
      	}
@@ -75,7 +71,6 @@ rule "Rule if Product Group Code match"
        		account.accountNumber == null, product.familyCode == null, product.isbn == null )
        	
    then  
-     	System.out.println("8");
      	modify($r){
      		setIsQualified(true);
      	}
@@ -90,7 +85,6 @@ rule "Rule if Product ISBN match"
        		account.accountNumber == null, product.familyCode == null, product.productGroupCode == null )
        	
    then 
-   		System.out.println("9");
    		modify($r){
      		setIsQualified(true);
      	}
@@ -105,7 +99,6 @@ rule "Rule if Account Type match"
        	product.familyCode == null, product.isbn == null)
        	
    then 
-   		System.out.println("10");
    		modify($r){
      		setIsQualified(true);
      	}
@@ -119,7 +112,6 @@ rule "Rule if Account Type and Product ISBN match"
        		product.isbn!=null, product.isbn == $line.product.isbn, product.familyCode == null  )
        	
    then  
-     	System.out.println("11");
      	modify($r){
      		setIsQualified(true);
      	}
@@ -134,7 +126,6 @@ rule "Rule if Account Number match"
        		product.familyCode == null, product.productGroupCode == null, product.isbn == null )
 
    then  
-     	System.out.println("12");
      	modify($r){
      		setIsQualified(true);
      	}
@@ -147,7 +138,6 @@ rule "Rule if Account Number and Family Code Match"
        	$r: RuleSetup(!isQualified, account.accountNumber == $o.account.accountNumber, product.familyCode.equals($o.product.familyCode))
        	
    then  
-     	System.out.println("13");
      	modify($r){
      		setIsQualified(true);
      	}
@@ -162,7 +152,6 @@ rule "Standard Rule if family code match"
        	$r: StandardRuleSetup(!isQualified, product.familyCode.equals($o.product.familyCode) )
        	
    then  
-     	System.out.println("14");
      	modify($r){
      		setIsQualified(true);
      	}

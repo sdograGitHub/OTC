@@ -10,7 +10,6 @@ rule "Define priority P1 on basis of overridenExplicitly flag"
 	when
 		$r: RuleSetup(isQualified, offer.overridenExplicitly)
 	then
-		System.out.println("1");
 		modify($r){
 			setWinningPriority("P1");
 		}
@@ -22,7 +21,6 @@ rule "Define priority P2 on basis of hardcode flag"
 	when
 		$r: RuleSetup(isQualified, offer.hardcode, !offer.overridenExplicitly)
 	then
-		System.out.println("2");
 		modify($r){
 			setWinningPriority("P2");
 		}
@@ -33,7 +31,6 @@ rule "Decide winner on basis of combo field"
 	when
 		$r: RuleSetup(isQualified, offer.comboField == 2, !isWinner)
 	then
-     	System.out.println("3");
      	modify($r){
 			setIsWinner(true);
 		}

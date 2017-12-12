@@ -45,14 +45,13 @@ public class OrderLine implements Serializable {
     @OneToOne(cascade = CascadeType.ALL,targetEntity=Product.class)
     private Product product;
     
-    
     @Column(name="ruleWinner")
     private Integer ruleWinner; 
     
     @OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "ORDERLINE_QUALIFIER", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "ruleQualifierId") })	
-	private List<RuleQualifier> ruleQualifier = new ArrayList<RuleQualifier>();
-    
+   	@JoinTable(name = "ORDERLINE_QUALIFIER", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "ruleQualifierId") })	
+   	private List<RuleQualifier> ruleQualifier = new ArrayList<RuleQualifier>();
+      
     public OrderLine() {
     }
     

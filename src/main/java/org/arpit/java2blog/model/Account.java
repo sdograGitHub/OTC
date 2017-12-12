@@ -36,9 +36,6 @@ public class Account {
 	@Column(name="accountGroup")
 	private String accountGroup;
 	
-	@Column(name="org")
-	private String org;
-	
 	@Column(name="distributionChannel")
 	private String distributionChannel;
 	
@@ -48,6 +45,17 @@ public class Account {
 	@Column(name="distributionCenter")
 	private String distributionCenter;
 	
+	@Column(name="storeNumber")
+	private Integer storeNumber;
+
+	public Integer getStoreNumber() {
+		return storeNumber;
+	}
+
+	public void setStoreNumber(Integer storeNumber) {
+		this.storeNumber = storeNumber;
+	}
+
 	public Integer getAccountNumber() {
 		return accountNumber;
 	}
@@ -70,14 +78,6 @@ public class Account {
 	
 	public void setAccountGroup(String accountGroup) {
 		this.accountGroup = accountGroup;
-	}
-	
-	public String getOrg() {
-		return org;
-	}
-	
-	public void setOrg(String org) {
-		this.org = org;
 	}
 	
 	public String getDistributionChannel() {

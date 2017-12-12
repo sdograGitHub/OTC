@@ -17,8 +17,12 @@ import org.arpit.java2blog.model.Product;
 import org.arpit.java2blog.model.RuleSetup;
 import org.arpit.java2blog.model.StandardRuleSetup;
 import org.arpit.java2blog.model.form.DemoForm;
+import org.arpit.java2blog.revListner.CustomAgendaEventListener;
 import org.arpit.java2blog.service.DemoRuleService;
 import org.constants.Constants;
+import org.kie.internal.event.KnowledgeRuntimeEventManager;
+import org.kie.internal.logger.KnowledgeRuntimeLogger;
+import org.kie.internal.logger.KnowledgeRuntimeLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -41,9 +45,11 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 
 	@Autowired
 	DemoRuleDao demoRuleDao;
+
 	public KieSessionBean kieSession;
 	private TrackingAgendaEventListener agendaEventListener;
 	private TrackingWorkingMemoryEventListener workingMemoryEventListener;
+
 	@Autowired
 	public DemoRuleServiceImpl(
 			@Qualifier("demoKieContainer") KieContainerBean kieContainer,@Qualifier("demoKieServices") KieServicesBean kieServices) {
@@ -55,15 +61,20 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 
 		kieSession.addEventListener(agendaEventListener);
 		kieSession.addEventListener(workingMemoryEventListener);
+		kieSession.addEventListener( new CustomAgendaEventListener() ); //audit
+
+		//using global variable in drool
+		//kieSession.setGlobal("isRuleValid", true);
 
 	}
 
 	@Override
 	public void addRule(DemoForm demoForm) {
-		HashMap<Integer, Integer> map = new HashMap();
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		RuleSetup ruleSetup = new RuleSetup();
 		ruleSetup.setRuleNumber(demoForm.getRuleNumber());
 		ruleSetup.setRuleName(demoForm.getRuleName());
+
 		Account account = new Account();
 		account.setAccountNumber(demoForm.getAccountNumber());
 		if(demoForm.getAccountType().equals("")) {
@@ -72,6 +83,7 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 			account.setAccountType(demoForm.getAccountType());
 		}
 		ruleSetup.setAccount(account);
+
 		Product product = new Product();
 		if(demoForm.getFc().equals("")) {
 			product.setFamilyCode(null);
@@ -85,18 +97,18 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 			product.setProductGroupCode(demoForm.getDgp());
 		}
 		ruleSetup.setProduct(product);
+
 		Discount discount = new Discount();
 		discount.setPercentage(demoForm.getDiscount());
 		ruleSetup.setDiscount(discount);
+
 		Offer offer =new Offer();
 		offer.setComboField(demoForm.getCombo());
 		offer.setHardcode(demoForm.isHardcode());
 		offer.setPriority(demoForm.getPriority());
 		offer.setOverridenExplicitly(demoForm.isOverridenExplicitly());
-
 		offer.setDays(demoForm.getTerms());
 		offer.setFrieghtCharge(demoForm.getFrieghtCharge());
-
 		ruleSetup.setOffer(offer);
 
 		ruleSetup.setDiscountRange1(demoForm.getDiscountRange1());
@@ -111,10 +123,10 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 			map.put(demoForm.getQuantityRange2(), demoForm.getDiscountRange2());
 		}
 		ruleSetup.setMap(map);
-		
+
 		kieSession.insert(ruleSetup);
 		kieSession.insert(ruleSetup.getOffer());
-		
+
 		demoRuleDao.addRuleSetUp(ruleSetup);
 	}
 
@@ -126,10 +138,11 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 
 	@Override
 	public void addStandardRule(DemoForm demoForm) {
-		HashMap<Integer, Integer> map = new HashMap();
+		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		StandardRuleSetup standardRuleSetup = new StandardRuleSetup();
 		standardRuleSetup.setRuleNumber(demoForm.getRuleNumber());
 		standardRuleSetup.setRuleName(demoForm.getRuleName());
+
 		Account account = new Account();
 		account.setAccountNumber(demoForm.getAccountNumber());
 		if("".equals(demoForm.getAccountType())) {
@@ -138,6 +151,7 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 			account.setAccountType(demoForm.getAccountType());
 		}
 		standardRuleSetup.setAccount(account);
+
 		Product product = new Product();
 		if("".equals(demoForm.getFc())) {
 			product.setFamilyCode(null);
@@ -151,6 +165,7 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 			product.setProductGroupCode(demoForm.getDgp());
 		}
 		standardRuleSetup.setProduct(product);
+
 		Discount discount = new Discount();
 		discount.setPercentage(demoForm.getDiscount());
 		standardRuleSetup.setDiscount(discount);
@@ -168,7 +183,7 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 			map.put(demoForm.getQuantityRange2(), demoForm.getDiscountRange2());
 		}
 		standardRuleSetup.setMap(map);
-		
+
 		kieSession.insert(standardRuleSetup );
 		demoRuleDao.addStandradRuleSetUp(standardRuleSetup);
 
@@ -189,17 +204,19 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 	public void addOrder(DemoForm demoForm) {
 		OrderLine orderLine = new OrderLine();
 		orderLine.setOrderLineId(demoForm.getOrderLineNumber());
+
 		Account account = new Account();
 		account.setAccountNumber(demoForm.getAccountNumber());
 		account.setAccountType(demoForm.getAccountType());
 		orderLine.setAccount(account);
+
 		Product product = new Product();
 		product.setFamilyCode(demoForm.getFc());
 		product.setIsbn(demoForm.getIsbn());
 		product.setProductGroupCode(demoForm.getDgp());
 		orderLine.setProduct(product);
 		orderLine.setQuantity(demoForm.getQuantity());
-		
+
 		kieSession.insert( orderLine );
 		demoRuleDao.addOrderLineSetUp(orderLine);
 
@@ -210,7 +227,6 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 
 		//fire all rules
 		System.out.println("Rules fired: " + kieSession.fireAllRules());
-		
 		List<RuleSetup> tempRulesQualified = new ArrayList<RuleSetup>();
 
 		Collection<StandardRuleSetup> standardRulesQualified = findQualifiedStdRuleSetupList(null);
@@ -296,6 +312,9 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 		if(!displayQualifierRule.equals(" ")) {
 			model.addAttribute("qualifiers", displayQualifierRule.substring(2));
 		}
+
+		//close sessions
+		kieSession.dispose();
 
 		return ("index");
 	}

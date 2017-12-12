@@ -52,11 +52,22 @@ public class Offer {
 	@Column(name="days")
 	private Integer days;
 	
+	@Column(name="promoCode")
+    private String promoCode;
+	
 	@Column(name="frieghtCharge")
     private String frieghtCharge;
 	
 	public Offer() {
 		
+	}
+	
+	public String getPromoCode() {
+		return promoCode;
+	}
+
+	public void setPromoCode(String promoCode) {
+		this.promoCode = promoCode;
 	}
 
 	public Boolean getHardcode() {

@@ -42,6 +42,17 @@ public class Product {
 	@Column(name="offerCode")
 	private Integer offerCode;
 	
+	@Column(name="discountGroupCode")
+	private String discountGroupCode;
+	
+	public String getDiscountGroupCode() {
+		return discountGroupCode;
+	}
+
+	public void setDiscountGroupCode(String discountGroupCode) {
+		this.discountGroupCode = discountGroupCode;
+	}
+
 	public String getMassProductGroupCode() {
 		return massProductGroupCode;
 	}
