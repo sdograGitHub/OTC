@@ -1,5 +1,6 @@
 package org.arpit.java2blog.serviceImpl;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,9 +21,6 @@ import org.arpit.java2blog.model.form.DemoForm;
 import org.arpit.java2blog.revListner.CustomAgendaEventListener;
 import org.arpit.java2blog.service.DemoRuleService;
 import org.constants.Constants;
-import org.kie.internal.event.KnowledgeRuntimeEventManager;
-import org.kie.internal.logger.KnowledgeRuntimeLogger;
-import org.kie.internal.logger.KnowledgeRuntimeLoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -41,14 +39,15 @@ import com.technorage.demo.drools.spring.KieSessionBean;
 
 @Service
 @Scope(value=ConfigurableBeanFactory.SCOPE_SINGLETON, proxyMode=ScopedProxyMode.INTERFACES)
-public class DemoRuleServiceImpl implements DemoRuleService{
+public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable {
 
-	@Autowired
-	DemoRuleDao demoRuleDao;
-
+	private static final long serialVersionUID = -8700062519048895244L;
 	public KieSessionBean kieSession;
 	private TrackingAgendaEventListener agendaEventListener;
 	private TrackingWorkingMemoryEventListener workingMemoryEventListener;
+
+	@Autowired
+	DemoRuleDao demoRuleDao;
 
 	@Autowired
 	public DemoRuleServiceImpl(
@@ -78,7 +77,7 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 		Account account = new Account();
 		account.setAccountNumber(demoForm.getAccountNumber());
 		account.setStoreNumber(demoForm.getStoreNumber());
-		if(demoForm.getAccountType().equals("")) {
+		if("".equals(demoForm.getAccountType())) {
 			account.setAccountType(null);
 		}else {
 			account.setAccountType(demoForm.getAccountType());

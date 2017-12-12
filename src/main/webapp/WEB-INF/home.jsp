@@ -84,9 +84,9 @@
 							placeholder="Type rule number" class="form-control" />
 						<form:input path="ruleName" id="ruleName-input" type="text"
 							placeholder="Type rule Name" class="form-control" />
-						<form:input path="accountNumber" id="accountNumber-input"
+						<form:input path="accountNumber" id="ruleAccountNumber-input"
 							placeholder="Type account" class="form-control" />
-						<form:input path="storeNumber" id="storeNumber-input"
+						<form:input path="storeNumber" id="ruleStoreNumber-input"
 							placeholder="Type store number" class="form-control" />
 						<form:input path="fc" id="fc-input" type="text"
 							placeholder="Type FC" class="form-control" />
@@ -210,12 +210,9 @@
 		<!-- Added Rules are displayed below -->
 
 		<ul class="nav nav-tabs" role="tablist">
-			<li class="active"><a href="#room" role="tab" data-toggle="tab">Rule
-					Set</a></li>
-			<li><a href="#orderLine" role="tab" data-toggle="tab">Order
-					Lines</a></li>
-			<li><a href="#standardRule" role="tab" data-toggle="tab">Standard
-					Rule</a></li>
+			<li class="active"><a href="#room" role="tab" data-toggle="tab">Rule Set</a></li>
+			<li><a href="#orderLine" role="tab" data-toggle="tab">Order Lines</a></li>
+			<li><a href="#standardRule" role="tab" data-toggle="tab">Standard Rule</a></li>
 		</ul>
 
 		<!-- Tab panes -->
@@ -269,7 +266,7 @@
 										<td>${rulesetup.quantityRange1}</td>
 										<td>${rulesetup.discountRange1}</td>
 										<td>${rulesetup.quantityRange2}</td>
-										<td>${uleSetup.discountRange2}</td> 
+										<td>${ruleSetup.discountRange2}</td> 
 									</tr>
 								</c:forEach>
 							</tbody>

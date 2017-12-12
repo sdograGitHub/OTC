@@ -80,9 +80,9 @@
 									<th>Rule Name</th>
 									<th>Account Number</th>
 									<th>Store Number</th>
-									<th>Family C</th>
+									<th>Family Code</th>
 									<th>DGP</th>
-									<th>AT</th>
+									<th>Account Type</th>
 									<th>Isbn</th>
 									<th>Discount</th>
 									<th>Priority</th>
@@ -103,8 +103,8 @@
 									<tr>
 										<td>${rulesetup.ruleNumber}</td>
 										<td>${rulesetup.ruleName}</td>
-										<td>${ruleSetup.account.accountNumber}</td>
-										<td>${ruleSetup.account.storeNumber}</td>
+										<td>${rulesetup.account.accountNumber}</td>
+										<td>${rulesetup.account.storeNumber}</td>
 										<td>${rulesetup.product.familyCode}</td>
 										<td>${rulesetup.product.productGroupCode}</td>
 										<td>${rulesetup.account.accountType}</td>
@@ -138,7 +138,7 @@
 									<th>Rule Name</th>
 									<th>Account Type</th>
 									<th>Store Number</th>
-									<th>FC</th>
+									<th>Family Code</th>
 									<th>Isbn</th>
 									<th>Quantity Range1</th>
 									<th>Discount Range1</th>
