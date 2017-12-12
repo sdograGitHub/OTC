@@ -86,6 +86,8 @@
 							placeholder="Type rule Name" class="form-control" />
 						<form:input path="accountNumber" id="accountNumber-input"
 							placeholder="Type account" class="form-control" />
+						<form:input path="storeNumber" id="storeNumber-input"
+							placeholder="Type store number" class="form-control" />
 						<form:input path="fc" id="fc-input" type="text"
 							placeholder="Type FC" class="form-control" />
 						<form:input path="dgp" id="dgp-input" type="text"
@@ -145,6 +147,8 @@
 							placeholder="Type rule Name" class="form-control" />
 						<form:input path="accountType" id="accountType-input" type="text"
 							placeholder="Type account type" class="form-control" />
+						<form:input path="storeNumber" id="storeNumber-input"
+							placeholder="Type store number" class="form-control" />
 						<form:input path="fc" id="fc-input" type="text"
 							placeholder="Type FC" class="form-control" />
 						<form:input path="isbn" id="isbn-input" placeholder="Type isbn"
@@ -184,6 +188,8 @@
 							placeholder="Type account" class="form-control" />
 						<form:input path="accountType" id="accountType-input"
 							placeholder="Type account type" class="form-control" />
+						<form:input path="storeNumber" id="storeNumber-input"
+							placeholder="Type store number" class="form-control" />
 						<form:input path="fc" id="fc-input" type="text"
 							placeholder="Type FC" class="form-control" />
 						<form:input path="dgp" id="dgp-input" type="text"
@@ -223,6 +229,7 @@
 									<th>Rule Number</th>
 									<th>Rule Name</th>
 									<th>Account</th>
+									<th>Store Number</th>
 									<th>FC</th>
 									<th>DGP</th>
 									<th>AT</th>
@@ -247,6 +254,7 @@
 										<td>${rulesetup.ruleNumber}</td>
 										<td>${rulesetup.ruleName}</td>
 										<td>${sprinkler.ruleSetup.account.accountNumber}</td>
+										<td>${sprinkler.ruleSetup.account.storeNumber}</td>
 										<td>${rulesetup.product.familyCode}</td>
 										<td>${rulesetup.product.productGroupCode}</td>
 										<td>${rulesetup.account.accountType}</td>
@@ -279,6 +287,7 @@
 									<th>Rule Number</th>
 									<th>Rule Name</th>
 									<th>Account Type</th>
+									<th>Store Number</th>
 									<th>FC</th>
 									<th>Isbn</th>
 									<th>Quantity Range1</th>
@@ -296,6 +305,7 @@
 										<td>${standardRuleSetup.ruleNumber}</td>
 										<td>${standardRuleSetup.ruleName}</td>
 										<td>${standardRuleSetup.account.accountType}</td>
+										<td>${standardRuleSetup.account.storeNumber}</td>
 										<td>${standardRuleSetup.product.familyCode}</td>
 										<td>${standardRuleSetup.product.isbn}</td>
 										<td>${standardRuleSetup.quantityRange1}</td>
@@ -320,7 +330,8 @@
 								<tr>
 									<th>Order Line#</th>
 									<th>Account Number</th>
-									<th>AT</th>
+									<th>Store Number</th>
+									<th>Account Type</th>
 									<th>FC</th>
 									<th>DGP</th>
 									<th>Isbn</th>
@@ -344,6 +355,7 @@
 											commandName="demoForm">
 											<td>${orderLine.orderLineId}</td>
 											<td>${orderLine.account.accountNumber}</td>
+											<td>${orderLine.account.storeNumber}</td>
 											<td>${orderLine.account.accountType}</td>
 											<td>${orderLine.product.familyCode}</td>
 											<td>${orderLine.product.productGroupCode}</td>

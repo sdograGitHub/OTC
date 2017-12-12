@@ -79,6 +79,7 @@
 									<th>Rule Number</th>
 									<th>Rule Name</th>
 									<th>Account</th>
+									<th>Store</th>
 									<th>FC</th>
 									<th>DGP</th>
 									<th>AT</th>
@@ -103,6 +104,7 @@
 										<td>${rulesetup.ruleNumber}</td>
 										<td>${rulesetup.ruleName}</td>
 										<td>${sprinkler.ruleSetup.account.accountNumber}</td>
+										<td>${sprinkler.ruleSetup.account.storeNumber}</td>
 										<td>${rulesetup.product.familyCode}</td>
 										<td>${rulesetup.product.productGroupCode}</td>
 										<td>${rulesetup.account.accountType}</td>
@@ -135,6 +137,7 @@
 									<th>Rule Number</th>
 									<th>Rule Name</th>
 									<th>Account Type</th>
+									<th>Store Number</th>
 									<th>FC</th>
 									<th>Isbn</th>
 									<th>Quantity Range1</th>
@@ -152,6 +155,7 @@
 										<td>${standardRuleSetup.ruleNumber}</td>
 										<td>${standardRuleSetup.ruleName}</td>
 										<td>${standardRuleSetup.account.accountType}</td>
+										<td>${standardRuleSetup.account.storeNumber}</td>
 										<td>${standardRuleSetup.product.familyCode}</td>
 										<td>${standardRuleSetup.product.isbn}</td>
 										<td>${standardRuleSetup.quantityRange1}</td>
@@ -176,8 +180,9 @@
 								<tr>
 									<th>Order Line#</th>
 									<th>Account Number</th>
-									<th>AT</th>
-									<th>FC</th>
+									<th>Account Type</th>
+									<th>Store Number</th>
+									<th>Family Code</th>
 									<th>DGP</th>
 									<th>Isbn</th>
 									<th>Quantity</th>
@@ -201,6 +206,7 @@
 											<td>${orderLine.orderLineId}</td>
 											<td>${orderLine.account.accountNumber}</td>
 											<td>${orderLine.account.accountType}</td>
+											<td>${orderLine.account.storeNumber}</td>
 											<td>${orderLine.product.familyCode}</td>
 											<td>${orderLine.product.productGroupCode}</td>
 											<td>${orderLine.product.isbn}</td>

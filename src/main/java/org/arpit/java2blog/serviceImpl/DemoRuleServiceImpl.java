@@ -77,6 +77,7 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 
 		Account account = new Account();
 		account.setAccountNumber(demoForm.getAccountNumber());
+		account.setStoreNumber(demoForm.getStoreNumber());
 		if(demoForm.getAccountType().equals("")) {
 			account.setAccountType(null);
 		}else {
@@ -145,6 +146,7 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 
 		Account account = new Account();
 		account.setAccountNumber(demoForm.getAccountNumber());
+		account.setStoreNumber(demoForm.getStoreNumber());
 		if("".equals(demoForm.getAccountType())) {
 			account.setAccountType(null);
 		}else {
@@ -207,6 +209,7 @@ public class DemoRuleServiceImpl implements DemoRuleService{
 
 		Account account = new Account();
 		account.setAccountNumber(demoForm.getAccountNumber());
+		account.setStoreNumber(demoForm.getStoreNumber());
 		account.setAccountType(demoForm.getAccountType());
 		orderLine.setAccount(account);
 

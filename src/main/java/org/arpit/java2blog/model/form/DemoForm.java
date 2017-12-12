@@ -6,6 +6,7 @@ public class DemoForm {
     private Integer ruleNumber;
 	private String ruleName;
 	private Integer accountNumber;
+	private Integer storeNumber;
 	private String fc;
 	private String dgp;
 	private String accountType;
@@ -159,6 +160,13 @@ public class DemoForm {
 	}
 	public void setDiscountRange3(Integer discountRange3) {
 		this.discountRange3 = discountRange3;
+	}
+	
+	public Integer getStoreNumber() {
+		return storeNumber;
+	}
+	public void setStoreNumber(Integer storeNumber) {
+		this.storeNumber = storeNumber;
 	}
 	
 }
