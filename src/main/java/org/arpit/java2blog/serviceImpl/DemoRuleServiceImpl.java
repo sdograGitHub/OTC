@@ -21,7 +21,6 @@ import org.arpit.java2blog.model.StandardRuleSetup;
 import org.arpit.java2blog.model.form.DemoForm;
 import org.arpit.java2blog.revListner.CustomAgendaEventListener;
 import org.arpit.java2blog.service.DemoRuleService;
-import org.constants.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
@@ -29,6 +28,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.utility.Constants;
 
 import com.technorage.demo.drools.FactFinder;
 import com.technorage.demo.drools.monitoring.TrackingAgendaEventListener;
@@ -86,14 +87,14 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 		ruleSetup.setAccount(account);
 
 		Product product = new Product();
-		if(demoForm.getFc().equals("")) {
+		if(StringUtils.isEmpty(demoForm.getFc()) ) {
 			product.setFamilyCode(null);
 		}else {
 			product.setFamilyCode(demoForm.getFc());
 		}
 		product.setIsbn(demoForm.getIsbn());
 		product.setDiscountGroupCode(demoForm.getDiscountGroupCode());
-		if(demoForm.getDgp().equals("")) {
+		if(StringUtils.isEmpty(demoForm.getDgp()) ) {
 			product.setProductGroupCode(null);
 		}else {
 			product.setProductGroupCode(demoForm.getDgp());
@@ -113,16 +114,21 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 		offer.setFrieghtCharge(demoForm.getFrieghtCharge());
 		ruleSetup.setOffer(offer);
 
-		ruleSetup.setDiscountRange1(demoForm.getDiscountRange1());
-		ruleSetup.setDiscountRange2(demoForm.getDiscountRange2());
 		ruleSetup.setQuantityRange1(demoForm.getQuantityRange1());
+		ruleSetup.setDiscountRange1(demoForm.getDiscountRange1());
 		ruleSetup.setQuantityRange2(demoForm.getQuantityRange2());
-
+		ruleSetup.setDiscountRange2(demoForm.getDiscountRange2());
+		ruleSetup.setQuantityRange3(demoForm.getQuantityRange3());
+		ruleSetup.setDiscountRange3(demoForm.getDiscountRange3());
+		
 		if(demoForm.getQuantityRange1()!=null && demoForm.getDiscountRange1()!=null) {
 			map.put(demoForm.getQuantityRange1(), demoForm.getDiscountRange1());
 		}
 		if(demoForm.getQuantityRange2()!=null && demoForm.getDiscountRange2()!=null) {
 			map.put(demoForm.getQuantityRange2(), demoForm.getDiscountRange2());
+		}
+		if(demoForm.getQuantityRange3()!=null && demoForm.getDiscountRange3()!=null) {
+			map.put(demoForm.getQuantityRange3(), demoForm.getDiscountRange3());
 		}
 		ruleSetup.setMap(map);
 
@@ -130,12 +136,6 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 		kieSession.insert(ruleSetup.getOffer());
 
 		demoRuleDao.addRuleSetUp(ruleSetup);
-	}
-
-	@Override
-	public List<RuleSetup> getRuleSetupList() {
-		// TODO Auto-generated method stub
-		return demoRuleDao.getAllRuleSetup();
 	}
 
 	@Override
@@ -172,10 +172,10 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 		Discount discount = new Discount();
 		discount.setPercentage(demoForm.getDiscount());
 		standardRuleSetup.setDiscount(discount);
-		standardRuleSetup.setDiscountRange1(demoForm.getDiscountRange1());
-		standardRuleSetup.setDiscountRange2(demoForm.getDiscountRange2());
 		standardRuleSetup.setQuantityRange1(demoForm.getQuantityRange1());
+		standardRuleSetup.setDiscountRange1(demoForm.getDiscountRange1());
 		standardRuleSetup.setQuantityRange2(demoForm.getQuantityRange2());
+		standardRuleSetup.setDiscountRange2(demoForm.getDiscountRange2());
 		standardRuleSetup.setQuantityRange3(demoForm.getQuantityRange3());
 		standardRuleSetup.setDiscountRange3(demoForm.getDiscountRange3());
 
@@ -185,6 +185,9 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 		if(demoForm.getQuantityRange2()!=null && demoForm.getDiscountRange2()!=null) {
 			map.put(demoForm.getQuantityRange2(), demoForm.getDiscountRange2());
 		}
+		if(demoForm.getQuantityRange3()!=null && demoForm.getDiscountRange3()!=null) {
+			map.put(demoForm.getQuantityRange3(), demoForm.getDiscountRange3());
+		}
 		standardRuleSetup.setMap(map);
 
 		kieSession.insert(standardRuleSetup );
@@ -192,6 +195,12 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 
 	}
 
+	@Override
+	public List<RuleSetup> getRuleSetupList() {
+		// TODO Auto-generated method stub
+		return demoRuleDao.getAllRuleSetup();
+	}
+	
 	@Override
 	public List<StandardRuleSetup> getStandardRuleSetupList() {
 		return demoRuleDao.getAllStandardRuleSetup();

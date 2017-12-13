@@ -76,6 +76,12 @@ public class RuleSetup implements Serializable {
 
 	@Column(name = "quantityRange2")
 	private Integer quantityRange2;
+	
+	@Column(name = "discountRange3")
+	private Integer discountRange3;
+
+	@Column(name = "quantityRange3")
+	private Integer quantityRange3;
 
 	public Account getAccount() {
 		return account;
@@ -204,6 +210,22 @@ public class RuleSetup implements Serializable {
 
 	public void setMap(HashMap<Integer, Integer> map) {
 		this.map = map;
+	}
+
+	public Integer getDiscountRange3() {
+		return discountRange3;
+	}
+
+	public void setDiscountRange3(Integer discountRange3) {
+		this.discountRange3 = discountRange3;
+	}
+
+	public Integer getQuantityRange3() {
+		return quantityRange3;
+	}
+
+	public void setQuantityRange3(Integer quantityRange3) {
+		this.quantityRange3 = quantityRange3;
 	}
 
 }

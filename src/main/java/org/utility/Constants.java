@@ -1,4 +1,4 @@
-package org.constants;
+package org.utility;
 
 public class Constants {
 

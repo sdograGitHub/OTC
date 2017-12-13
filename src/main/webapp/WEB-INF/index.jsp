@@ -57,6 +57,17 @@
 		
 		<a href="<c:out value="/home"/>">Rule Engine Configuration</a>
 		
+		<th>
+			<form:form method="POST" action="exportRuleData"
+				commandName="demoForm">
+				<div class="input-group">
+					<span class="input-group-btn"> <input
+						class="btn btn-success" type="submit" value="Export Rules" />
+					</span>
+				</div>
+			</form:form>
+		</th>
+		
 	</div>
 
 		<!-- Added Rules are displayed below -->
@@ -95,6 +106,8 @@
 									<th>Discount Range1</th>
 									<th>Quantity Range2</th>
 									<th>Discount Range2</th>
+									<th>Quantity Range3</th>
+									<th>Discount Range3</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -121,6 +134,8 @@
 										<td>${ruleSetup.discountRange1}</td>
 										<td>${ruleSetup.quantityRange2}</td>
 										<td>${ruleSetup.discountRange2}</td> 
+										<td>${ruleSetup.quantityRange3}</td>
+										<td>${ruleSetup.discountRange3}</td> 
 									</tr>
 								</c:forEach>
 							</tbody>

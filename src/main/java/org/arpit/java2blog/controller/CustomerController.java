@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.utility.Constants;
+import org.utility.ExportRuleSetupData;
 
 
 @Controller
@@ -74,9 +76,10 @@ public class CustomerController {
     /*ExportRuleData*/
     @RequestMapping(value="/exportRuleData", method=RequestMethod.POST)
     public String exportRuleData(@ModelAttribute DemoForm demoForm, Model model) {
-    	
-    	ruleService.addRule(demoForm);
-		return getIndex(model);
+    	ExportRuleSetupData.generateRuleSetupRows(ruleService.getRuleSetupList());
+		
+		model.addAttribute(Constants.NET_OUTPUT, "RuleDataExport.xlsx created successfully!");
+		return ("index");
     }
   
     private String getIndex(Model model){
