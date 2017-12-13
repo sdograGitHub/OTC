@@ -2,6 +2,7 @@ package org.arpit.java2blog.serviceImpl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -91,6 +92,7 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 			product.setFamilyCode(demoForm.getFc());
 		}
 		product.setIsbn(demoForm.getIsbn());
+		product.setDiscountGroupCode(demoForm.getDiscountGroupCode());
 		if(demoForm.getDgp().equals("")) {
 			product.setProductGroupCode(null);
 		}else {
@@ -216,6 +218,7 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 		product.setFamilyCode(demoForm.getFc());
 		product.setIsbn(demoForm.getIsbn());
 		product.setProductGroupCode(demoForm.getDgp());
+		product.setDiscountGroupCode(demoForm.getDiscountGroupCode());
 		orderLine.setProduct(product);
 		orderLine.setQuantity(demoForm.getQuantity());
 
@@ -365,6 +368,11 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 		}
 
 		return finalRule;
+	}
+	
+	//return csv in list
+	private List<String> separateCSVInList(String csvString){
+		return Arrays.asList(csvString.split("\\s*,\\s*"));
 	}
 
 }

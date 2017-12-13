@@ -9,6 +9,7 @@ public class DemoForm {
 	private Integer storeNumber;
 	private String fc;
 	private String dgp;
+	private String discountGroupCode;
 	private String accountType;
 	private Double discount;
 	private Integer terms;
@@ -167,6 +168,12 @@ public class DemoForm {
 	}
 	public void setStoreNumber(Integer storeNumber) {
 		this.storeNumber = storeNumber;
+	}
+	public String getDiscountGroupCode() {
+		return discountGroupCode;
+	}
+	public void setDiscountGroupCode(String discountGroupCode) {
+		this.discountGroupCode = discountGroupCode;
 	}
 	
 }

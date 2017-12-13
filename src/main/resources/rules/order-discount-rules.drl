@@ -1,9 +1,7 @@
 package business.rules;
 
 import org.arpit.java2blog.model.*;
-
 import java.util.*;
-
 
 rule "Rule if Account Number, Product Group Code and Product ISBN Match"
     no-loop
@@ -150,6 +148,22 @@ rule "Standard Rule if family code match"
     when  
        	$o: OrderLine()  
        	$r: StandardRuleSetup(!isQualified, product.familyCode.equals($o.product.familyCode) )
+       	
+   then  
+     	modify($r){
+     		setIsQualified(true);
+     	}
+     
+end
+
+rule "Rule if Account Number, Product Group Code, Store Number and Product ISBN Match"
+    no-loop
+    when  
+       	$line: OrderLine()  
+       	$r: RuleSetup(account.accountNumber!=null, account.accountNumber == $line.account.accountNumber ,
+       		account.storeNumber!=null, account.storeNumber == $line.account.storeNumber, 
+       		product.productGroupCode!=null, product.productGroupCode.equals($line.product.productGroupCode),
+       		product.familyCode == null, product.isbn!=null, product.isbn == $line.product.isbn )
        	
    then  
      	modify($r){

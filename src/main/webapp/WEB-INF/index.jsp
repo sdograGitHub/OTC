@@ -38,34 +38,33 @@
 		<div class="page-header">
 			<h2>HBG Discounting Application</h2>
 		</div>
-		<a href="<c:out value="/home"/>">Rule Engine Configuration</a>
 
-		<%-- <c:choose>
+		<c:choose>
 			<c:when test="${!qualifiers.equals(' ')}">
 				<div class="alert alert-success" role="alert">
 					Rules qualified: <strong><c:out value="${qualifiers}" /></strong>
 				</div>
 			</c:when>
-		</c:choose> --%>
+		</c:choose> 
 
-		<%-- <c:choose>
+		<c:choose>
 			<c:when test="${!netOutput.equals(' ')}">
 				<div class="alert alert-success" role="alert">
 					Output: <strong><c:out value="${netOutput}" /></strong>
 				</div>
 			</c:when>
-		</c:choose> --%>
-		</div>
+		</c:choose>
+		
+		<a href="<c:out value="/home"/>">Rule Engine Configuration</a>
+		
+	</div>
 
 		<!-- Added Rules are displayed below -->
 
 		<ul class="nav nav-tabs" role="tablist">
-			<li class="active"><a href="#room" role="tab" data-toggle="tab">Rule
-					Set</a></li>
-			<li><a href="#orderLine" role="tab" data-toggle="tab">Order
-					Lines</a></li>
-			<li><a href="#standardRule" role="tab" data-toggle="tab">Standard
-					Rule</a></li>
+			<li class="active"><a href="#room" role="tab" data-toggle="tab">Rule Set</a></li>
+			<li><a href="#orderLine" role="tab" data-toggle="tab">Order Lines</a></li>
+			<li><a href="#standardRule" role="tab" data-toggle="tab">Standard Rule</a></li>
 		</ul>
 
 		<!-- Tab panes -->
@@ -81,6 +80,7 @@
 									<th>Account Number</th>
 									<th>Store Number</th>
 									<th>Family Code</th>
+									<th>Discount Group Code</th>
 									<th>DGP</th>
 									<th>Account Type</th>
 									<th>Isbn</th>
@@ -98,27 +98,28 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="rulesetup" varStatus="item"
+								<c:forEach var="ruleSetup" varStatus="item"
 									items="${ruleSetUpList}">
 									<tr>
-										<td>${rulesetup.ruleNumber}</td>
-										<td>${rulesetup.ruleName}</td>
-										<td>${rulesetup.account.accountNumber}</td>
-										<td>${rulesetup.account.storeNumber}</td>
-										<td>${rulesetup.product.familyCode}</td>
-										<td>${rulesetup.product.productGroupCode}</td>
-										<td>${rulesetup.account.accountType}</td>
-										<td>${rulesetup.product.isbn}</td>
-										<td>${rulesetup.discount.percentage}</td>
-										<td>${rulesetup.offer.priority}</td>
-										<td>${rulesetup.offer.days}</td>
-										<td>${rulesetup.offer.frieghtCharge}</td>
-										<td>${rulesetup.offer.comboField}</td>
-										<td>${rulesetup.offer.overridenExplicitly}</td>
-										<td>${rulesetup.offer.hardcode}</td>
-										<td>${rulesetup.quantityRange1}</td>
-										<td>${rulesetup.discountRange1}</td>
-										<td>${rulesetup.quantityRange2}</td>
+										<td>${ruleSetup.ruleNumber}</td>
+										<td>${ruleSetup.ruleName}</td>
+										<td>${ruleSetup.account.accountNumber}</td>
+										<td>${ruleSetup.account.storeNumber}</td>
+										<td>${ruleSetup.product.familyCode}</td>
+										<td>${ruleSetup.product.discountGroupCode}</td>
+										<td>${ruleSetup.product.productGroupCode}</td>
+										<td>${ruleSetup.account.accountType}</td>
+										<td>${ruleSetup.product.isbn}</td>
+										<td>${ruleSetup.discount.percentage}</td>
+										<td>${ruleSetup.offer.priority}</td>
+										<td>${ruleSetup.offer.days}</td>
+										<td>${ruleSetup.offer.frieghtCharge}</td>
+										<td>${ruleSetup.offer.comboField}</td>
+										<td>${ruleSetup.offer.overridenExplicitly}</td>
+										<td>${ruleSetup.offer.hardcode}</td>
+										<td>${ruleSetup.quantityRange1}</td>
+										<td>${ruleSetup.discountRange1}</td>
+										<td>${ruleSetup.quantityRange2}</td>
 										<td>${ruleSetup.discountRange2}</td> 
 									</tr>
 								</c:forEach>
@@ -183,6 +184,7 @@
 									<th>Account Type</th>
 									<th>Store Number</th>
 									<th>Family Code</th>
+									<th>Discount Group Code</th>
 									<th>DGP</th>
 									<th>Isbn</th>
 									<th>Quantity</th>
@@ -208,6 +210,7 @@
 											<td>${orderLine.account.accountType}</td>
 											<td>${orderLine.account.storeNumber}</td>
 											<td>${orderLine.product.familyCode}</td>
+											<td>${orderLine.product.discountGroupCode}</td>
 											<td>${orderLine.product.productGroupCode}</td>
 											<td>${orderLine.product.isbn}</td>
 											<td>${orderLine.quantity}</td>

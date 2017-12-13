@@ -1,4 +1,4 @@
-package org.arpit.java2blog.model;
+	package org.arpit.java2blog.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,9 +30,6 @@ public class OrderLine implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Integer orderLineId;
     
-    @OneToOne(cascade = CascadeType.ALL,targetEntity=Item.class)
-    private Item item;
-    
     @Column(name="quantity")
     private Integer quantity;
     
@@ -55,27 +52,12 @@ public class OrderLine implements Serializable {
     public OrderLine() {
     }
     
-    public Item getItem() {
-        return item;
-    }
-    
-    public void setItem(Item item) {
-        this.item = item;
-    }
-    
     public Integer getQuantity() {
         return quantity;
     }
     
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public void increaseDiscount(double increase) {
-        if (discount == null) {
-            discount = new Discount(0.0);
-        }
-        discount.setPercentage(discount.getPercentage() + increase);
     }
 
     public Discount getDiscount() {
