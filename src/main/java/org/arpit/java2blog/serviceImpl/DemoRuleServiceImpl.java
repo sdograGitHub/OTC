@@ -2,13 +2,14 @@ package org.arpit.java2blog.serviceImpl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import org.arpit.java2blog.dao.DemoRuleDao;
 import org.arpit.java2blog.model.Account;
@@ -47,7 +48,7 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 	public KieSessionBean kieSession;
 	private TrackingAgendaEventListener agendaEventListener;
 	private TrackingWorkingMemoryEventListener workingMemoryEventListener;
-
+	
 	@Autowired
 	DemoRuleDao demoRuleDao;
 
@@ -72,6 +73,7 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 	@Override
 	public void addRule(DemoForm demoForm) {
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+		
 		RuleSetup ruleSetup = new RuleSetup();
 		ruleSetup.setRuleNumber(demoForm.getRuleNumber());
 		ruleSetup.setRuleName(demoForm.getRuleName());
@@ -322,8 +324,9 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 		return demoRuleDao.getAllOrderLineSetup();
 	}
 
-	private static Integer getDiscountOnBasisOfQty(Integer quantity, HashMap<Integer, Integer> map) {
-		for (Entry<Integer, Integer> entry : map.entrySet()) {
+	private static Integer getDiscountOnBasisOfQty(Integer quantity, Map<Integer, Integer> map) {
+		Map<Integer, Integer> treeMap = new TreeMap<Integer, Integer>(map); //sort map on basis of key
+		for (Entry<Integer, Integer> entry : treeMap.entrySet()) {
 			if (quantity <= entry.getKey()) {
 				return entry.getValue();
 			}
@@ -371,9 +374,15 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 	private void loadKieSession() {
 		//load kieSession again for case when server is restarted
 		
-		kieSession.insert(getRuleSetupList());
-		kieSession.insert(getStandardRuleSetupList() );
-		kieSession.insert(getOrderSetupList() );
+		for(RuleSetup ruleSetup : getRuleSetupList()) {
+			kieSession.insert(ruleSetup);
+		}
+		for(StandardRuleSetup standardRuleSetup : getStandardRuleSetupList()) {
+			kieSession.insert(standardRuleSetup);
+		}
+		for(OrderLine orderLine : getOrderSetupList()) {
+			kieSession.insert(orderLine);
+		}
 		
 		System.out.println("Rules fired: " + kieSession.fireAllRules());
 

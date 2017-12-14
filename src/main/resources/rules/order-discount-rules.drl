@@ -136,7 +136,7 @@ rule "Rule if Account Type and Family Code match"
     when  
        	$line: OrderLine()  
        	$r: RuleSetup(account.accountType!=null, account.accountType.equals($line.account.accountType),  
-       		product.isbn == null, product.familyCode!=null, product.familyCode.equals($line.product.familyCode) )
+       		product.familyCode!=null, product.familyCode.equals($line.product.familyCode) )
        	
    then  
      	modify($r){
@@ -162,7 +162,8 @@ rule "Rule if Account Number and Family Code Match"
     no-loop
     when  
        	$o: OrderLine()  
-       	$r: RuleSetup(!isQualified, account.accountNumber == $o.account.accountNumber, product.familyCode.equals($o.product.familyCode))
+       	$r: RuleSetup(!isQualified,  account.accountNumber!=null, product.familyCode!=null,
+       		account.accountNumber == $o.account.accountNumber, product.familyCode.equals($o.product.familyCode))
        	
    then  
      	modify($r){
@@ -176,7 +177,7 @@ rule "Standard Rule if family code match"
     no-loop
     when  
        	$o: OrderLine()  
-       	$r: StandardRuleSetup(!isQualified, product.familyCode.equals($o.product.familyCode) )
+       	$r: StandardRuleSetup(!isQualified, product.familyCode!=null, product.familyCode.equals($o.product.familyCode) )
        	
    then  
      	modify($r){
