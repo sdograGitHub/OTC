@@ -17,5 +17,6 @@ public interface DemoRuleService<T> {
 	public List<OrderLine>getOrderSetupList();
 	void addOrder(DemoForm demoForm);
 	public String generateOffer(DemoForm demoForm, Model model);
+	public List<RuleSetup> getRuleSetUpRev(int id);
 	
 }

@@ -16,5 +16,6 @@ public interface DemoRuleDao {
 	public void addOrderLineSetUp(OrderLine orderLine);
 	public void deleteRuleSetUp(int id) ;
 	public void updateRuleSetUp(RuleSetup ruleSetUp);
+	public List<RuleSetup> getRuleSetUpAudit(int id);
 
 }

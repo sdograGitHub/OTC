@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
 import org.hibernate.envers.Audited;
 
 /**
@@ -20,6 +21,7 @@ import org.hibernate.envers.Audited;
  */
 @Entity
 @Audited
+@Proxy(lazy=false)
 @Table(name="StandardRule_SetUp")
 public class StandardRuleSetup implements Serializable {
 	private static final long serialVersionUID = 1L;

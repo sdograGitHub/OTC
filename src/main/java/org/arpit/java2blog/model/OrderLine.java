@@ -16,10 +16,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
 import org.hibernate.envers.Audited;
 
 @Entity
 @Audited
+@Proxy(lazy=false)
 @Table(name="OrderLine")
 public class OrderLine implements Serializable {
     
@@ -48,7 +50,7 @@ public class OrderLine implements Serializable {
     @Column(name="ruleWinner")
     private Integer ruleWinner; 
     
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(/*fetch = FetchType.EAGER, */cascade = CascadeType.ALL)
    	@JoinTable(name = "ORDERLINE_QUALIFIER", joinColumns = { @JoinColumn(name = "id") }, inverseJoinColumns = { @JoinColumn(name = "ruleQualifierId") })	
    	private List<RuleQualifier> ruleQualifier = new ArrayList<RuleQualifier>();
       

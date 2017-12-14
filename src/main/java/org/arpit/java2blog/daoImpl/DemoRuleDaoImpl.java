@@ -1,5 +1,6 @@
 package org.arpit.java2blog.daoImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,12 +14,14 @@ import org.arpit.java2blog.model.StandardRuleSetup;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;;
 
 @Repository
 public class DemoRuleDaoImpl implements DemoRuleDao {
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
 	@PersistenceContext
@@ -61,7 +64,7 @@ public class DemoRuleDaoImpl implements DemoRuleDao {
 	public void addStandradRuleSetUp(StandardRuleSetup standardRuleSetUp) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.save(standardRuleSetUp);
-		
+
 	}
 	@Override
 	@Transactional
@@ -82,7 +85,23 @@ public class DemoRuleDaoImpl implements DemoRuleDao {
 	public void addOrderLineSetUp(OrderLine orderLine) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.save(orderLine);
-		
+
+	}
+
+	@Override
+	@Transactional
+	public List<RuleSetup> getRuleSetUpAudit(int id) {
+		List<RuleSetup>rulesList=new ArrayList<RuleSetup>();
+		Session session = this.sessionFactory.getCurrentSession();
+		AuditReader reader = AuditReaderFactory.get(session);
+		List<Number> revisions = reader.getRevisions(RuleSetup.class, id);
+		for(Number revNum:revisions){
+			RuleSetup article =reader.find(RuleSetup.class, id, revNum);
+			rulesList.add(article);
+
+		}
+		return rulesList;
+
 	}
 
 }

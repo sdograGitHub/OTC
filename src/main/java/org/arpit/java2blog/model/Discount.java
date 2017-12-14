@@ -9,10 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
 import org.hibernate.envers.Audited;
 
 @Entity
 @Audited
+@Proxy(lazy=false)
 @Table(name="Discount")
 public class Discount implements Serializable {
 

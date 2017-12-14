@@ -48,7 +48,7 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 	public KieSessionBean kieSession;
 	private TrackingAgendaEventListener agendaEventListener;
 	private TrackingWorkingMemoryEventListener workingMemoryEventListener;
-	
+
 	@Autowired
 	DemoRuleDao demoRuleDao;
 
@@ -73,7 +73,7 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 	@Override
 	public void addRule(DemoForm demoForm) {
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-		
+
 		RuleSetup ruleSetup = new RuleSetup();
 		ruleSetup.setRuleNumber(demoForm.getRuleNumber());
 		ruleSetup.setRuleName(demoForm.getRuleName());
@@ -373,7 +373,7 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 
 	private void loadKieSession() {
 		//load kieSession again for case when server is restarted
-		
+
 		for(RuleSetup ruleSetup : getRuleSetupList()) {
 			kieSession.insert(ruleSetup);
 		}
@@ -383,9 +383,14 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 		for(OrderLine orderLine : getOrderSetupList()) {
 			kieSession.insert(orderLine);
 		}
-		
+
 		System.out.println("Rules fired: " + kieSession.fireAllRules());
 
+	}
+
+	@Override
+	public List<RuleSetup> getRuleSetUpRev(int id) {
+		return demoRuleDao.getRuleSetUpAudit(id);
 	}
 
 	/*private List<String> separateCSVInList(String csvString){
