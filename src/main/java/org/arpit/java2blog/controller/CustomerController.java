@@ -75,10 +75,11 @@ public class CustomerController {
     
     /*ExportRuleData*/
     @RequestMapping(value="/exportRuleData", method=RequestMethod.POST)
-    public String exportRuleData(@ModelAttribute DemoForm demoForm, Model model) {
-    	ExportRuleSetupData.generateRuleSetupRows(ruleService.getRuleSetupList());
+    public String exportRuleData(Model model) {
+    	getIndex(model);
 		
-		model.addAttribute(Constants.NET_OUTPUT, "RuleDataExport.xlsx created successfully!");
+    	ExportRuleSetupData.generateRuleSetupRows(ruleService.getRuleSetupList());
+    	model.addAttribute(Constants.NET_OUTPUT, "RuleDataExport.xlsx created successfully!");
 		return ("index");
     }
   

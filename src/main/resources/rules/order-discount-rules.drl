@@ -116,6 +116,35 @@ rule "Rule if Account Type and Product ISBN match"
      
 end
 
+rule "Rule if Account Number, Account Type and Family Code match"
+    no-loop
+    when  
+       	$line: OrderLine()  
+       	$r: RuleSetup(account.accountType!=null, account.accountType.equals($line.account.accountType),
+       		account.accountNumber!=null, account.accountNumber.equals($line.account.accountNumber),
+       		product.familyCode!=null, product.familyCode == $line.product.familyCode, product.isbn == null  )
+       	
+   then  
+     	modify($r){
+     		setIsQualified(true);
+     	}
+     
+end
+
+rule "Rule if Account Type and Family Code match"
+    no-loop
+    when  
+       	$line: OrderLine()  
+       	$r: RuleSetup(account.accountType!=null, account.accountType.equals($line.account.accountType),  
+       		product.isbn == null, product.familyCode!=null, product.familyCode.equals($line.product.familyCode) )
+       	
+   then  
+     	modify($r){
+     		setIsQualified(true);
+     	}
+     
+end
+
 rule "Rule if Account Number match"
     no-loop
     when  
@@ -156,14 +185,14 @@ rule "Standard Rule if family code match"
      
 end
 
-rule "Rule if Account Number, Product Group Code, Store Number and Product ISBN Match"
+rule "Rule if Account Number, Discount Group Code, Account Type and Product ISBN Match"
     no-loop
     when  
        	$line: OrderLine()  
        	$r: RuleSetup(account.accountNumber!=null, account.accountNumber == $line.account.accountNumber ,
-       		account.storeNumber!=null, account.storeNumber == $line.account.storeNumber, 
-       		product.productGroupCode!=null, product.productGroupCode.equals($line.product.productGroupCode),
-       		product.familyCode == null, product.isbn!=null, product.isbn == $line.product.isbn )
+       		account.accountType!=null, account.accountType == $line.account.accountType, 
+       		product.discountGroupCode!=null, product.discountGroupCode.equals($line.product.discountGroupCode),
+       		product.isbn!=null, product.isbn == $line.product.isbn )
        	
    then  
      	modify($r){

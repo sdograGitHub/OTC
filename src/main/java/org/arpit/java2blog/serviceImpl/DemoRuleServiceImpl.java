@@ -120,7 +120,7 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 		ruleSetup.setDiscountRange2(demoForm.getDiscountRange2());
 		ruleSetup.setQuantityRange3(demoForm.getQuantityRange3());
 		ruleSetup.setDiscountRange3(demoForm.getDiscountRange3());
-		
+
 		if(demoForm.getQuantityRange1()!=null && demoForm.getDiscountRange1()!=null) {
 			map.put(demoForm.getQuantityRange1(), demoForm.getDiscountRange1());
 		}
@@ -131,9 +131,6 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 			map.put(demoForm.getQuantityRange3(), demoForm.getDiscountRange3());
 		}
 		ruleSetup.setMap(map);
-
-		kieSession.insert(ruleSetup);
-		kieSession.insert(ruleSetup.getOffer());
 
 		demoRuleDao.addRuleSetUp(ruleSetup);
 	}
@@ -190,32 +187,14 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 		}
 		standardRuleSetup.setMap(map);
 
-		kieSession.insert(standardRuleSetup );
 		demoRuleDao.addStandradRuleSetUp(standardRuleSetup);
 
 	}
 
 	@Override
-	public List<RuleSetup> getRuleSetupList() {
-		// TODO Auto-generated method stub
-		return demoRuleDao.getAllRuleSetup();
-	}
-	
-	@Override
-	public List<StandardRuleSetup> getStandardRuleSetupList() {
-		return demoRuleDao.getAllStandardRuleSetup();
-
-	}
-
-	@Override
-	public List<OrderLine> getOrderSetupList() {
-		return demoRuleDao.getAllOrderLineSetup();
-	}
-
-	@Override
 	public void addOrder(DemoForm demoForm) {
 		OrderLine orderLine = new OrderLine();
-		orderLine.setOrderLineId(demoForm.getOrderLineNumber());
+		orderLine.setOrderLineNumber(demoForm.getOrderLineNumber());
 
 		Account account = new Account();
 		account.setAccountNumber(demoForm.getAccountNumber());
@@ -231,18 +210,15 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 		orderLine.setProduct(product);
 		orderLine.setQuantity(demoForm.getQuantity());
 
-		kieSession.insert( orderLine );
 		demoRuleDao.addOrderLineSetUp(orderLine);
 
 	}
 
 	@Override
 	public String generateOffer(DemoForm demoForm, Model model) {
+		loadKieSession();
 
-		//fire all rules
-		System.out.println("Rules fired: " + kieSession.fireAllRules());
 		List<RuleSetup> tempRulesQualified = new ArrayList<RuleSetup>();
-
 		Collection<StandardRuleSetup> standardRulesQualified = findQualifiedStdRuleSetupList(null);
 		Collection<RuleSetup> rulesQualifiedList = findQualifiedRuleSetupList(null);
 
@@ -259,7 +235,6 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 			if(line.getQuantity()!=null) {
 				usedQuantity = line.getQuantity();	
 			}
-
 		}
 
 		//for case rule is qualified
@@ -327,10 +302,24 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 			model.addAttribute("qualifiers", displayQualifierRule.substring(2));
 		}
 
-		//close sessions
-		kieSession.dispose();
-
 		return ("index");
+	}
+
+	@Override
+	public List<RuleSetup> getRuleSetupList() {
+		// TODO Auto-generated method stub
+		return demoRuleDao.getAllRuleSetup();
+	}
+
+	@Override
+	public List<StandardRuleSetup> getStandardRuleSetupList() {
+		return demoRuleDao.getAllStandardRuleSetup();
+
+	}
+
+	@Override
+	public List<OrderLine> getOrderSetupList() {
+		return demoRuleDao.getAllOrderLineSetup();
 	}
 
 	private static Integer getDiscountOnBasisOfQty(Integer quantity, HashMap<Integer, Integer> map) {
@@ -378,11 +367,22 @@ public class DemoRuleServiceImpl<T> implements DemoRuleService<T>, Serializable 
 
 		return finalRule;
 	}
-	
-	//return csv in list
-	private List<String> separateCSVInList(String csvString){
-		return Arrays.asList(csvString.split("\\s*,\\s*"));
+
+	private void loadKieSession() {
+		//load kieSession again for case when server is restarted
+		
+		kieSession.insert(getRuleSetupList());
+		kieSession.insert(getStandardRuleSetupList() );
+		kieSession.insert(getOrderSetupList() );
+		
+		System.out.println("Rules fired: " + kieSession.fireAllRules());
+
 	}
+
+	/*private List<String> separateCSVInList(String csvString){
+		return Arrays.asList(csvString.split("\\s*,\\s*"));
+	}*/
+
 
 }
 

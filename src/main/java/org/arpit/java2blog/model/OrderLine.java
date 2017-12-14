@@ -28,7 +28,10 @@ public class OrderLine implements Serializable {
     @Id
 	@Column(name="id")
 	@GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer orderLineId;
+	private Integer id;
+    
+	@Column(name="orderLineNumber")
+    private Integer orderLineNumber;
     
     @Column(name="quantity")
     private Integer quantity;
@@ -100,16 +103,20 @@ public class OrderLine implements Serializable {
 		this.ruleWinner = ruleWinner;
 	}
 
-	public Integer getOrderLineId() {
-		return orderLineId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setOrderLineId(Integer orderLineId) {
-		this.orderLineId = orderLineId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	
-    
-    
+	public Integer getOrderLineNumber() {
+		return orderLineNumber;
+	}
+
+	public void setOrderLineNumber(Integer orderLineNumber) {
+		this.orderLineNumber = orderLineNumber;
+	}
 
 }

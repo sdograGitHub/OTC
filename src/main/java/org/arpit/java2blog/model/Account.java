@@ -33,9 +33,6 @@ public class Account {
 	@Column(name="accountType")
 	private String accountType;
 	
-	@Column(name="accountGroup")
-	private String accountGroup;
-	
 	@Column(name="distributionChannel")
 	private String distributionChannel;
 	
@@ -70,14 +67,6 @@ public class Account {
 	
 	public void setAccountType(String accountType) {
 		this.accountType = accountType;
-	}
-	
-	public String getAccountGroup() {
-		return accountGroup;
-	}
-	
-	public void setAccountGroup(String accountGroup) {
-		this.accountGroup = accountGroup;
 	}
 	
 	public String getDistributionChannel() {

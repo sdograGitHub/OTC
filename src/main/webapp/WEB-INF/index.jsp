@@ -220,7 +220,7 @@
 									<tr>
 										<form:form method="POST" action="deleteOrder"
 											commandName="demoForm">
-											<td>${orderLine.orderLineId}</td>
+											<td>${orderLine.orderLineNumber}</td>
 											<td>${orderLine.account.accountNumber}</td>
 											<td>${orderLine.account.accountType}</td>
 											<td>${orderLine.account.storeNumber}</td>
