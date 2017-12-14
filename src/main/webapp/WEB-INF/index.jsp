@@ -139,9 +139,9 @@
 									<td>${ruleSetup.discountRange3}</td>
 
 									<td><a
-										href="<c:url value='/editRuleSet/${rulesetup.id}' />">Edit</a></td>
+										href="<c:url value='/editRuleSet/${ruleSetup.id}' />">Edit</a></td>
 									<td><a
-										href="<c:url value='/deleteRuleSet/${rulesetup.id}' />">Delete</a></td>
+										href="<c:url value='/deleteRuleSet/${ruleSetup.id}' />">Delete</a></td>
 									<a href='#'
 										onclick='javascript:window.open("http://localhost:8080/ruleSetRevision/${ruleSetup.id}", "_blank", "scrollbars=1,resizable=1");'
 										title='VersionDetails'>Version</a>
